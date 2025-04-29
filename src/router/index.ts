@@ -5,6 +5,7 @@ const router = createRouter({
 		{ path: '/', component: () => import('../views/Home.vue') },
 		{ path: '/cart', component: () => import('../views/Cart.vue') },
 		{ path: '/pizza/:id', component: () => import('../views/Pizza.vue') },
+		{ path: '/:pathMatch(.*)*', component: () => import('../views/NotFound.vue') },
 	],
 	history: createWebHistory(),
 });

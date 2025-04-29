@@ -2,17 +2,16 @@
 	<div class="pizza-items">
 		<h1>Все пиццы</h1>
 		<div class="pizza-wrapper">
-			<template v-if="!items.length">
+			<template v-if="!pizzaStore.pizzas.length">
 				<PizzaSkeleton v-for="n in 8" :key="n" />
 			</template>
 			<template v-else>
 				<PizzaItem
-					v-for="pizza in items"
+					v-for="pizza in pizzaStore.pizzas"
 					:key="pizza.id"
 					@add-pizza="onAddPizza"
 					v-bind="pizza"
 					:type="pizza.type"
-					:count="0"
 				/>
 			</template>
 		</div>
@@ -20,26 +19,25 @@
 </template>
 
 <script setup lang="ts">
-	import { onMounted, ref } from 'vue';
-	import axios from 'axios';
+	import { onMounted } from 'vue';
+	import { usePizzaStore } from '../store/pizza.store';
 	import PizzaItem from './PizzaItem.vue';
 	import PizzaSkeleton from './PizzaSkeleton.vue';
 	import { useCartStore } from '../store/cart.store';
 	import type { TPizza } from '../types/TPizza.ts';
 
-	const items = ref<TPizza[]>([]);
 	const store = useCartStore();
+	const pizzaStore = usePizzaStore();
+
+	const pizzaTotalCount = (pizza: { variants: { count: number }[] }) => {
+		return pizza.variants.reduce((sum, variant) => sum + variant.count, 0);
+	};
 
 	onMounted(async () => {
 		try {
-			const { data } = await axios.get('https://67afa6a3dffcd88a67873fcf.mockapi.io/items');
-			console.log('Fetched pizzas:', data);
-
-			if (data.length !== 0) {
-				items.value = data;
-			}
+			await pizzaStore.fetchPizzas();
 		} catch (error) {
-			console.error('Error fetching pizzas:', error);
+			console.error('Ошибка при загрузке пицц', error);
 		}
 	});
 

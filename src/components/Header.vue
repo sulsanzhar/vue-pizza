@@ -10,7 +10,7 @@
 			</div>
 		</RouterLink>
 
-		<RouterLink to="/cart" class="cart">
+		<RouterLink v-show="route.path === '/'" to="/cart" class="cart">
 			<b>{{ store.cart.totalPrice }} ₸</b>
 			<b>|</b>
 			<div>
@@ -23,6 +23,9 @@
 
 <script setup lang="ts">
 	import { useCartStore } from '../store/cart.store';
+	import { useRoute } from 'vue-router';
+
+	const route = useRoute();
 
 	const store = useCartStore();
 </script>

@@ -34,7 +34,7 @@ export const useCartStore = defineStore('cart', () => {
 		const variant = {
 			size: String(pizza.size),
 			type: String(pizza.type),
-			price: pizza.price,
+			price: pizza.price!,
 			count: 1,
 		};
 

@@ -5,7 +5,7 @@
 				<img src="../assets/img/black-cart-icon.png" alt="black-cart-icon" />
 				<h1>Корзина</h1>
 			</div>
-			<div class="clear-btn">
+			<div v-show="cart.items.length" class="clear-btn">
 				<button>
 					<v-icon scale="1.2" fill="inherit" name="md-delete-outlined" />
 					<p>Очистить корзину</p>
@@ -31,6 +31,15 @@
 					<p class="pizza-cart-count">{{ pizzaTotalCount(pizza) }} шт.</p>
 				</template>
 			</PizzaCart>
+			<div v-show="!cart.items.length" class="empty-pizza">
+				<h1>Корзина пустая 😕</h1>
+				<p>
+					Вероятней всего, вы не заказывали ещё пиццу. <br />
+					Для того, чтобы заказать пиццу, перейди на главную страницу.
+				</p>
+				<img src="../assets/img/cart-empty.png" alt="empty-cart" />
+				<RouterLink to="/" class="btn-back">Вернуться назад</RouterLink>
+			</div>
 
 			<PizzaModal
 				v-if="isModalOpen && selectedPizza"
@@ -71,7 +80,8 @@
 	.cart {
 		width: 80%;
 		margin: 0 auto;
-		margin-top: 100px;
+		margin-top: 60px;
+		min-height: 60vh;
 	}
 
 	.cart-header {
@@ -118,5 +128,41 @@
 	.cart-header div:last-child button:hover {
 		color: red;
 		fill: red;
+	}
+
+	.empty-pizza {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
+		text-align: center;
+
+		img {
+			width: 300px;
+			height: 255px;
+			margin: 0 auto;
+			display: flex;
+		}
+
+		p {
+			color: #777777;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #282828;
+			color: white;
+			width: 210px;
+			height: 50px;
+			border-radius: 30px;
+			transition: 0.3s ease-in-out;
+		}
+
+		a:hover {
+			background-color: #fe5f1e;
+			color: white;
+		}
 	}
 </style>
