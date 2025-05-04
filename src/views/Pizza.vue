@@ -1,4 +1,5 @@
 <template>
+	<!-- Если пицца загружена, отображаем её -->
 	<div class="pizza" v-if="pizza">
 		<img :src="pizza.imageUrl" alt="pizza-logo" />
 		<div class="pizza-content">
@@ -19,14 +20,20 @@
 			</div>
 		</div>
 	</div>
+
+	<SinglePizzaSkeleton v-else />
+
+	<PreviousButton />
 </template>
 
 <script setup lang="ts">
 	import { useRoute } from 'vue-router';
 	import { onMounted, ref, computed } from 'vue';
+	import PreviousButton from '../components/PreviousButton.vue';
 	import axios from 'axios';
 	import type { TPizza } from '../types/TPizza.ts';
 	import { pizzaSizes, pizzaPrices } from '../constants';
+	import SinglePizzaSkeleton from '../components/SinglePizzaSkeleton.vue';
 
 	const route = useRoute();
 	const id = route.params.id;
@@ -54,14 +61,9 @@
 			console.log(err);
 		}
 	});
-
-	console.log('pizza: ', pizza);
 </script>
 
 <style scoped>
-	h1 {
-		text-align: center;
-	}
 	.pizza {
 		display: flex;
 		justify-content: center;
@@ -82,16 +84,6 @@
 	.pizza-item-sizes button {
 		padding: 10px;
 		width: 33.3%;
-	}
-
-	.pizza-item-types button:hover:not(.active) {
-		background-color: rgba(255, 255, 255, 0.3);
-	}
-
-	.active {
-		background-color: #ffffff;
-		border-radius: 5px;
-		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
 	}
 
 	.pizza-item-variant {

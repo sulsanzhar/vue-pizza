@@ -1,11 +1,11 @@
 <template>
 	<div class="cart">
-		<div class="cart-header">
+		<div v-show="cart.items.length" class="cart-header">
 			<div>
 				<img src="../assets/img/black-cart-icon.png" alt="black-cart-icon" />
 				<h1>Корзина</h1>
 			</div>
-			<div v-show="cart.items.length" class="clear-btn">
+			<div class="clear-btn">
 				<button>
 					<v-icon scale="1.2" fill="inherit" name="md-delete-outlined" />
 					<p>Очистить корзину</p>
@@ -38,7 +38,7 @@
 					Для того, чтобы заказать пиццу, перейди на главную страницу.
 				</p>
 				<img src="../assets/img/cart-empty.png" alt="empty-cart" />
-				<RouterLink to="/" class="btn-back">Вернуться назад</RouterLink>
+				<PreviousButton />
 			</div>
 
 			<PizzaModal
@@ -54,6 +54,7 @@
 <script setup lang="ts">
 	import PizzaCart from '../components/PizzaCart.vue';
 	import PizzaModal from '../components/PizzaModal.vue';
+	import PreviousButton from '../components/PreviousButton.vue';
 	import { ref } from 'vue';
 	import { useCartStore } from '../store/cart.store';
 	import type { TPizza, TPizzaGrouped } from '../types/TPizza';
@@ -146,23 +147,6 @@
 
 		p {
 			color: #777777;
-		}
-
-		a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background-color: #282828;
-			color: white;
-			width: 210px;
-			height: 50px;
-			border-radius: 30px;
-			transition: 0.3s ease-in-out;
-		}
-
-		a:hover {
-			background-color: #fe5f1e;
-			color: white;
 		}
 	}
 </style>

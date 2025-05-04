@@ -29,10 +29,6 @@
 	const store = useCartStore();
 	const pizzaStore = usePizzaStore();
 
-	const pizzaTotalCount = (pizza: { variants: { count: number }[] }) => {
-		return pizza.variants.reduce((sum, variant) => sum + variant.count, 0);
-	};
-
 	onMounted(async () => {
 		try {
 			await pizzaStore.fetchPizzas();
