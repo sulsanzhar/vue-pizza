@@ -7,13 +7,8 @@ import PrimeVue from 'primevue/config';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { MdDeleteOutlined } from 'oh-vue-icons/icons/md';
 import { BiXCircle } from 'oh-vue-icons/icons';
-
-import 'primevue/resources/themes/saga-blue/theme.css';
-import 'primevue/resources/primevue.min.css';
-import 'primeicons/primeicons.css';
 import './style.css';
 
-// Регистрируем нужные иконки
 addIcons(MdDeleteOutlined, BiXCircle);
 
 const app = createApp(App);
